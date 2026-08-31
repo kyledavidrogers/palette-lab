@@ -9,6 +9,8 @@
 
 export type Swatch = {
   hex: string
+  /** Locked swatches survive a regenerate. */
+  locked: boolean
 }
 
 /** Convert HSL to a `#rrggbb` string. */
@@ -42,12 +44,17 @@ export function randomSwatch(): Swatch {
   const hue = Math.floor(Math.random() * 360)
   const saturation = 55 + Math.floor(Math.random() * 30) // 55-85%
   const lightness = 45 + Math.floor(Math.random() * 25) // 45-70%
-  return { hex: hslToHex(hue, saturation, lightness) }
+  return { hex: hslToHex(hue, saturation, lightness), locked: false }
 }
 
 /** A full palette of `count` colors. */
 export function randomPalette(count = 5): Swatch[] {
   return Array.from({ length: count }, randomSwatch)
+}
+
+/** Re-roll every swatch except the locked ones, which pass through untouched. */
+export function regeneratePalette(current: Swatch[]): Swatch[] {
+  return current.map((swatch) => (swatch.locked ? swatch : randomSwatch()))
 }
 
 /**

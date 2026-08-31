@@ -14,10 +14,29 @@
 .swatch {
   flex: 1;
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
   padding-bottom: 2.5rem;
   transition: flex 0.25s ease;
+}
+
+.lock {
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  line-height: 1;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.35;
+  transition: opacity 0.15s ease;
+}
+
+.swatch:hover .lock,
+.lock[aria-pressed='true'] {
+  opacity: 1;
 }
 
 .hex {
